@@ -1,0 +1,7 @@
+# Bỏ qua thư mục Allure
+reports/allure-results/
+reports/allure-report/
+
+# Bỏ qua các folder tạm khác (nếu muốn)
+.pytest_cache/
+myenv/
