@@ -1,4 +1,3 @@
-from behave import given, when, then, step
 from pages.login_page import LoginPage
 from pages.home_page import HomePage
 import allure
