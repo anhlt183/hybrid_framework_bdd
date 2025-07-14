@@ -1,5 +1,0 @@
-keyword,username,password,expected
-Login,standard_user,secret_sauce,Success
-Login,standard_user123,secret_sauce,Fail
-Login,standard_user,secret_sauce123,Fail
-Login,standard_user123,secret_sauce123,Fail
