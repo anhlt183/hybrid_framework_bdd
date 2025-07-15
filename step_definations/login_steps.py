@@ -3,15 +3,8 @@ import allure
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from pytest_bdd import scenarios, given, when, then, parsers
-from step_definations import common_step
-import pytest
-
 
 scenarios('../features/login.feature')
-
-@pytest.fixture
-def login_page(driver):
-    return LoginPage(driver)
 
 # Given Steps - Initial state/setup
 @given('I am on the login page')
@@ -55,3 +48,9 @@ def step_verify_error_message(login_page, error_message):
 @then('I should remain on the login page')
 def step_verify_remain_on_login_page(login_page):
     assert login_page.is_on_login_page(), "Not on the login page"
+
+@then('the login form should still be visible')
+def step_verify_login_form_visible(login_page):
+    assert login_page.is_login_form_visible(), "Login form is not visible"    
+
+ 

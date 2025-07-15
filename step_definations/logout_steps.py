@@ -7,10 +7,6 @@ import pytest
 
 scenarios('../features/logout.feature')
 
-@pytest.fixture
-def login_page(driver):
-    return LoginPage(driver)
-
 # Given Steps - Initial state/setup
 @given(parsers.parse('I already logged in with username is "{username}" and password is "{password}"'))
 def step_verify_user_already_logged_in(login_page, username, password):
@@ -34,7 +30,6 @@ def step_verify_login_page_redirect(login_page):
 def step_verify_is_on_login_page(login_page):
     assert login_page.is_on_login_page(), "Not in the login page"  
 
-# @then('the login form should still be visible') => this step already define on login_step, so if we define again => duplicate
-# def step_verify_login_form_visible(context):
-#     assert context.login_page.is_login_form_visible(), "Login form is not visible"
-#     print("Login form is still visible")
+@then('the login form should still be visible')
+def step_verify_login_form_visible(login_page):
+    assert login_page.is_login_form_visible(), "Login form is not visible"
