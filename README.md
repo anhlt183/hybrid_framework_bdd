@@ -105,7 +105,7 @@ Run tests and generate report:
 
 ```bash
 pytest -v step_definations/logout_steps.py --alluredir=allure-results
-allure generate allure-results -o allure-report --clean
+allure generate reports/allure-results -o reports/allure-report --clean
 allure serve reports/
 ```
 
