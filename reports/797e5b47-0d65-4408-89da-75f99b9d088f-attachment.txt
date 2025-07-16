@@ -1,0 +1,5 @@
+2025-07-15 23:00:02,150 - INFO - Navigating to login page: https://www.saucedemo.com/
+2025-07-15 23:00:03,173 - INFO - Login page loaded successfully
+2025-07-15 23:00:03,191 - INFO - Entering username: 
+2025-07-15 23:00:03,217 - INFO - Entering password
+2025-07-15 23:00:03,229 - INFO - Clicking login button

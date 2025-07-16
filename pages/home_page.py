@@ -1,122 +1,89 @@
 import allure
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import Select
 from utils.logger import get_logger
+from playwright.sync_api import Page, expect
 
 class HomePage:
-    def __init__(self, driver):
-        self.driver = driver
+    def __init__(self, page: Page):
+        self.page = page
         self.logger = get_logger()
-        self.wait = WebDriverWait(self.driver, 10)
-    
-    # Home Page Elements
-    PRODUCT_SORT_CONTAINER = (By.CLASS_NAME, "product_sort_container")
-    PRODUCT_NAME_LIST = (By.XPATH, '//div[@class="inventory_list"]//div[contains(@class,"inventory_item_name")]')
-    PRODUCT_PRICE_LIST = (By.XPATH, '//div[@class="inventory_list"]//div[contains(@class,"inventory_item_price")]')
-    
+
+        # Home Page Elements
+        self.product_sort_dropdown = page.locator('select.product_sort_container')
+        self.product_name_list = page.locator('//div[@class="inventory_list"]//div[contains(@class,"inventory_item_name")]')
+        self.product_price_list = page.locator('//div[@class="inventory_list"]//div[contains(@class,"inventory_item_price")]')
+
     def attach_screenshot(self, name="Screenshot"):
-        screenshot = self.driver.get_screenshot_as_png()
-        allure.attach(screenshot, name=name, attachment_type=allure.attachment_type.PNG)    
+        screenshot = self.page.screenshot()
+        allure.attach(screenshot, name=name, attachment_type=allure.attachment_type.PNG)
 
     @allure.step("Verify the product sort container is visible")
     def is_product_sort_container_visible(self):
-        self.logger.info("Verify the product sort container is visible")
-        try:
-            dropdown = self.wait.until(EC.presence_of_element_located(self.PRODUCT_SORT_CONTAINER))
-            return dropdown.is_displayed()
-        except Exception as e:
-            self.logger.error(f"Product sort container is not found: {e}")
-            self.attach_screenshot("Product sort container is not found")
-            return False
+        return self.product_sort_dropdown.is_visible()
 
     @allure.step("Get product name from the page")
     def get_product_name(self):
-        self.logger.info(f"Get current product name in the page")
-        by, value = self.PRODUCT_NAME_LIST
-        elements = self.driver.find_elements(by, value)
-        return [el.text for el in elements] #list comprehension in python  
-    
+        self.logger.info("Getting product names")
+        return self.product_name_list.all_text_contents()
+
     @allure.step("Get product price from the page")
     def get_product_price(self):
-        self.logger.info(f"Get current product price in the page")
-        by, value = self.PRODUCT_PRICE_LIST
-        elements = self.driver.find_elements(by, value)
-        return [float(el.text.replace('$', '')) for el in elements]  
+        self.logger.info("Getting product prices")
+        prices = self.product_price_list.all_text_contents()
+        return [float(price.replace('$', '').strip()) for price in prices]
 
     @allure.step("Select option: {option}")
     def select_sorting_order_option(self, option):
-        self.logger.info(f"Select option: {option}")
-        select = Select(self.wait.until(EC.presence_of_element_located(self.PRODUCT_SORT_CONTAINER)))
-        select.select_by_visible_text(option)  
+        self.logger.info(f"Selecting option: {option}")
+        self.product_sort_dropdown.select_option(label=option)
 
-    @allure.step("Verify that product is sorted by name successfully")
+    @allure.step("Verify that product is sorted by name Z to A")
     def is_sort_by_name_desc(self):
-        self.logger.info(f"Verify the product sorting from Z-A")
-        WebDriverWait(self.driver, 10).until(   
-        EC.text_to_be_present_in_element(
-            (By.CLASS_NAME, "active_option"),
-            "Name (Z to A)")
-        )
-        list_names_after = self.get_product_name()
-        expected = sorted(list_names_after, reverse=True)  #ham nay xep tu lon toi nho
-        self.logger.info(f"Product list after: {list_names_after}")
-        self.logger.info(f"Expected order: {expected}")
+        self.logger.info("Verifying product sort Z to A")
+        expect(self.page.locator(".active_option")).to_have_text("Name (Z to A)")
+        names = self.get_product_name()
+        expected = sorted(names, reverse=True)
+        self.logger.info(f"Actual: {names}, Expected: {expected}")
         try:
-            assert list_names_after == expected, f"Sorting failed!\nExpected: {expected}\nActual: {list_names_after}"
-        except Exception as e:
-            self.logger.error(f"Sorting fail: {e}")
-            self.attach_screenshot("Sorting with name (Z to A) fail")            
+            assert names == expected
+        except AssertionError as e:
+            self.logger.error(f"Sort failed: {e}")
+            self.attach_screenshot("Sort_Z_to_A_Fail")
 
+    @allure.step("Verify that product is sorted by name A to Z")
     def is_sort_by_name_asc(self):
-        self.logger.info(f"Verify the product sorting from A-Z")
-        WebDriverWait(self.driver, 10).until(   
-        EC.text_to_be_present_in_element(
-            (By.CLASS_NAME, "active_option"),
-            "Name (A to Z)")
-        )
-        list_names_after = self.get_product_name()
-        expected = sorted(list_names_after) #ham nay xep tu nho toi lon
-        self.logger.info(f"Product list after: {list_names_after}")
-        self.logger.info(f"Expected order: {expected}")
+        self.logger.info("Verifying product sort A to Z")
+        expect(self.page.locator(".active_option")).to_have_text("Name (A to Z)")
+        names = self.get_product_name()
+        expected = sorted(names)
+        self.logger.info(f"Actual: {names}, Expected: {expected}")
         try:
-            assert list_names_after == expected, f"Sorting failed!\nExpected: {expected}\nActual: {list_names_after}" 
-        except Exception as e:
-            self.logger.error(f"Sorting fail: {e}")
-            self.attach_screenshot("Sorting with name (A to Z) fail")
+            assert names == expected
+        except AssertionError as e:
+            self.logger.error(f"Sort failed: {e}")
+            self.attach_screenshot("Sort_A_to_Z_Fail")
 
-    @allure.step("Verify that product is sorted by price successfully")
+    @allure.step("Verify that product is sorted by price low to high")
     def is_sort_by_price_asc(self):
-        self.logger.info(f"Verify the product sorting from low - high")
-        WebDriverWait(self.driver, 10).until(   
-        EC.text_to_be_present_in_element(
-            (By.CLASS_NAME, "active_option"),
-            "Price (low to high)")
-        )
-        list_price_after = self.get_product_price()
-        expected = sorted(list_price_after) #ham nay xep tu nho toi lon
-        self.logger.info(f"Product list after: {list_price_after}")
-        self.logger.info(f"Expected order: {expected}")
+        self.logger.info("Verifying product sort Low to High")
+        expect(self.page.locator(".active_option")).to_have_text("Price (low to high)")
+        prices = self.get_product_price()
+        expected = sorted(prices)
+        self.logger.info(f"Actual: {prices}, Expected: {expected}")
         try:
-            assert list_price_after == expected, f"Sorting failed!\nExpected: {expected}\nActual: {list_price_after}" 
-        except Exception as e:
-            self.logger.error(f"Sorting fail: {e}")
-            self.attach_screenshot("Sorting with price (low to high) fail")
+            assert prices == expected
+        except AssertionError as e:
+            self.logger.error(f"Sort failed: {e}")
+            self.attach_screenshot("Sort_Low_to_High_Fail")
 
+    @allure.step("Verify that product is sorted by price high to low")
     def is_sort_by_price_desc(self):
-        self.logger.info(f"Verify the product sorting from high - low")
-        WebDriverWait(self.driver, 10).until(   
-        EC.text_to_be_present_in_element(
-            (By.CLASS_NAME, "active_option"),
-            "Price (high to low)")
-        )
-        list_price_after = self.get_product_price()
-        expected = sorted(list_price_after, reverse=True)  #ham nay xep tu lon toi nho
-        self.logger.info(f"Product list after: {list_price_after}")
-        self.logger.info(f"Expected order: {expected}")
+        self.logger.info("Verifying product sort High to Low")
+        expect(self.page.locator(".active_option")).to_have_text("Price (high to low)")
+        prices = self.get_product_price()
+        expected = sorted(prices, reverse=True)
+        self.logger.info(f"Actual: {prices}, Expected: {expected}")
         try:
-            assert list_price_after == expected, f"Sorting failed!\nExpected: {expected}\nActual: {list_price_after}"
-        except Exception as e:
-            self.logger.error(f"Sorting fail: {e}")
-            self.attach_screenshot("Sorting with name (Z to A) fail")                         
+            assert prices == expected
+        except AssertionError as e:
+            self.logger.error(f"Sort failed: {e}")
+            self.attach_screenshot("Sort_High_to_Low_Fail")
