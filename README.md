@@ -1,6 +1,6 @@
 # Python Selenium BDD Hybrid Automation Framework
 
-A robust, scalable test automation framework using **Python**, **Selenium WebDriver**, **Behave (BDD)**, and the **Page Object Model (POM)** architecture.
+A robust, scalable test automation framework using **Python**, **Playwright**, **Behave (BDD)**, and the **Page Object Model (POM)** architecture.
 
 ---
 
@@ -12,19 +12,19 @@ hybrid_framwork_BDD/
 ├── features/
 │   ├── login.feature                   # Login test scenarios (valid, invalid, outline)
 │   ├── logout.feature                  # Logout scenario
-│   ├── sorting_product_list.feature    # Sorting product list scenario (by name, price)
-│   ├── steps/
-│   │   ├── login_step.py                   # Step definitions for login
-│   │   ├── logout_step.py                  # Step definitions for logout
-│   │   └── sorting_product_list_step.py    # Step definitions for sorting
-│   └── environment.py          # Hooks (setup/teardown)
+│   └── sorting_product_list.feature    # Sorting product list scenario (by name, price)
 │
 ├── pages/
 │   ├── login_page.py           # Page class for login and logout
-│   └── home_page.py            # Page class for home page
+│   ├── home_page.py            # Page class for home page
+│   └── locators/
+│       ├── login_locators.py            # Locators for login page
+│       └── home_locators.py             # Locators for home page
 │
-├── utils/
-│   └── browser_utils.py        # WebDriver initialization and utilities
+├── step_definations/
+│   ├── login_steps.py                   # Step definitions for login
+│   ├── logout_steps.py                  # Step definitions for logout
+│   └── sorting_product_list_steps.py    # Step definitions for sorting
 │
 ├── reports/                    # Allure reports output (optional)
 ├── myenv/                      # Python virtual environment
@@ -36,14 +36,14 @@ hybrid_framwork_BDD/
 
 ## Tech Stack
 
-| Component     | Description                           |
-|---------------|---------------------------------------|
-| **Python**    | Core programming language             |
-| **Selenium**  | Browser automation                    |
-| **Behave**    | BDD-style test execution              |
-| **POM**       | Page Object Model for abstraction     |
-| **Allure**    | Rich test reports                     |
-| **Logging**   | `logging` module for step tracing     |
+| Component       | Description                           |
+|---------------  |---------------------------------------|
+| **Python**      | Core programming language             |
+| **Playwright**  | End-to-End Browser Automation         |
+| **Pytest**      | Python testing framework              |
+| **POM**         | Page Object Model for abstraction     |
+| **Allure**      | Rich test reports                     |
+| **Logging**     | `logging` module for step tracing     |
 
 ---
 
@@ -80,31 +80,17 @@ cd hybrid_framwork_BDD
 myenv\Scripts\activate
 ```
 
-### 2. Run All Features
+### 2. Run All step files
 
 ```bash
-behave
+pytest -v
 ```
 
-### 3. Run Specific Feature File
+### 3. Run Specific step File
 
 ```bash
-behave features/logout.feature
+pytest -v step_definations/logout_steps.py
 ```
-
-### 4. Run Specific Scenario or Tag
-
-```bash
-behave -n "Successfull logout from the application"
-```
-
----
-
-## Hooks (`environment.py`)
-
-- `before_all` → Launches browser  
-- `after_all` → Closes browser  
-
 ---
 
 ## Reporting with Allure
@@ -112,25 +98,22 @@ behave -n "Successfull logout from the application"
 Install Allure CLI:
 
 ```bash
-pip install allure-behave
+pip install allure-pytest
 ```
 
 Run tests and generate report:
 
 ```bash
-behave -f allure_behave.formatter:AllureFormatter -o reports/ features/
+pytest -v step_definations/logout_steps.py --alluredir=allure-results
+allure generate allure-results -o allure-report --clean
 allure serve reports/
 ```
 
 ---
 
 ## Notes & Best Practices
-
-- Duplicate step definitions (e.g. `@then('the login form should still be visible')`) should be shared in only one step file to avoid `AmbiguousStep` errors.
-- Use `context.<page>` objects carefully — always initialize them before use.
 - Use `strip()` or default `''` for empty string handling in Scenario Outlines.
 - Structure your Page classes well with locators, actions, and status checkers.
-
 ---
 
 ## Author

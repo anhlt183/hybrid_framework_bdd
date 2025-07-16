@@ -1,0 +1,6 @@
+2025-07-16 10:47:07,569 - INFO - Navigating to login page: https://www.saucedemo.com/
+2025-07-16 10:47:09,947 - INFO - Login page loaded successfully
+2025-07-16 10:47:09,948 - INFO - Entering username: standard_user
+2025-07-16 10:47:09,972 - INFO - Entering password
+2025-07-16 10:47:09,998 - INFO - Clicking login button
+2025-07-16 10:47:10,077 - INFO - Verifying login success

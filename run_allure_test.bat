@@ -1,22 +1,13 @@
 @echo off
-REM Xóa thư mục allure-results và allure-report nếu đã tồn tại
-IF EXIST reports\allure-results (
-    rmdir /s /q reports\allure-results
-)
-IF EXIST reports\allure-report (
-    rmdir /s /q reports\allure-report
-)
+echo
+rd /s /q allure-results
+rd /s /q allure-report
 
-REM Tạo lại thư mục allure-results
-mkdir reports\allure-results
+echo 
+pytest --alluredir=allure-results
 
-REM Chạy pytest sinh kết quả allure
-pytest --alluredir=reports/allure-results
+echo
+allure generate allure-results -o allure-report --clean
 
-REM Sinh HTML report mới từ kết quả allure
-allure generate reports/allure-results -o reports/allure-report --clean
-start reports\allure-report\index.html
-REM Thông báo hoàn thành
-echo ==== ĐÃ CHẠY XONG, BÁO CÁO NẰM Ở reports\allure-report\index.html ====
-pause
-
+echo 
+allure open allure-report

@@ -1,0 +1,2 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"C:\playwright\hybrid_framwork_BDD\features\logout.feature: Successfull logout from the application","4879","test_successfull_logout_from_the_application","step_definations","Wed Jul 16 10:47:06 ICT 2025","passed","Wed Jul 16 10:47:11 ICT 2025","","logout_steps","",""

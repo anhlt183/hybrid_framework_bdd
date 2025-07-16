@@ -1,5 +1,0 @@
-[32mINFO    [0m automation:login_page.py:23 Navigating to login page: https://www.saucedemo.com/
-[32mINFO    [0m automation:login_page.py:26 Login page loaded successfully
-[32mINFO    [0m automation:login_page.py:30 Entering username: standard_user
-[32mINFO    [0m automation:login_page.py:35 Entering password
-[32mINFO    [0m automation:login_page.py:40 Clicking login button
