@@ -1,6 +1,7 @@
 import allure
 from utils.logger import get_logger
 from playwright.sync_api import Page, expect
+from pages.locators import home_locators as ho
 
 class HomePage:
     def __init__(self, page: Page):
@@ -8,9 +9,9 @@ class HomePage:
         self.logger = get_logger()
 
         # Home Page Elements
-        self.product_sort_dropdown = page.locator('select.product_sort_container')
-        self.product_name_list = page.locator('//div[@class="inventory_list"]//div[contains(@class,"inventory_item_name")]')
-        self.product_price_list = page.locator('//div[@class="inventory_list"]//div[contains(@class,"inventory_item_price")]')
+        self.product_sort_dropdown = page.locator(ho.PRODUCT_SORT_DROPDOWN)
+        self.product_name_list = page.locator(ho.PRODUCT_NAME_LIST)
+        self.product_price_list = page.locator(ho.PRODUCT_PRICE_LIST)
 
     def attach_screenshot(self, name="Screenshot"):
         screenshot = self.page.screenshot()

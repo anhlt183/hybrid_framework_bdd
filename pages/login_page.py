@@ -1,6 +1,8 @@
 import allure
 from utils.logger import get_logger
 from playwright.sync_api import Page, expect
+from pages.locators import login_locators as lo
+from pages.locators import home_locators as ho
 
 class LoginPage:
     def __init__(self, page: Page):
@@ -8,15 +10,15 @@ class LoginPage:
         self.logger = get_logger()
         
     # locator
-        self.username_field = page.locator('input[name="user-name"]')
-        self.password_field = page.locator('input[name="password"]')
-        self.login_button = page.locator('#login-button')
-        self.login_logo = page.locator('div.login_logo')
+        self.username_field = page.locator(lo.USERNAME_FIELD)
+        self.password_field = page.locator(lo.PASSWORD_FIELD)
+        self.login_button = page.locator(lo.LOGIN_BUTTON)
+        self.login_logo = page.locator(lo.LOGIN_LOGO)
 
-        self.home_logo = page.locator('div.app_logo')
-        self.burger_menu = page.locator('#react-burger-menu-btn')
-        self.logout_button = page.locator('#logout_sidebar_link')
-        self.error_message = page.locator('[data-test="error"]')
+        self.home_logo = page.locator(ho.HOME_LOGO)
+        self.burger_menu = page.locator(ho.BURGER_MENU)
+        self.logout_button = page.locator(ho.LOGOUT_BUTTON)
+        self.error_message = page.locator(ho.ERROR_MESSAGE)
 
     @allure.step("Navigate to login page")
     def navigate_to_login_page(self):
