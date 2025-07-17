@@ -72,27 +72,15 @@ hybrid_framwork_BDD/
 ---
 
 ## Installation steps
-
-### Activate virtual environment
-
 1. In Terminal, select the root folder project `cd hybrid_framwork_BDD`
 2. Create virtual environment management directory `python -m venv myenv`
 3. Activate virtual environment `myenv\Scripts\activate`
+4. Install all project dependencies with `pip install -r requirements.txt`
 
-### Activate virtual environment
-
-### 2. Run All step files
-
-```bash
-pytest -v
-```
-
-### 3. Run Specific step File
-
-```bash
-pytest -v step_definations/logout_steps.py
-```
----
+## Run test
+Run all test `pytest`
+Run specific feature file `pytest features/logout.feature`
+Run specific scenarion in a feature file `pytest features/logout.feature -k "Successfull logout from the application"`
 
 ## Reporting with Allure
 
