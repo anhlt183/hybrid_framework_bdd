@@ -71,26 +71,33 @@ hybrid_framwork_BDD/
 
 ---
 
-## Installation steps
+## How to run test  
+
+### **Installation steps**
+
 1. In Terminal, select the root folder project `cd hybrid_framwork_BDD`
 2. Create virtual environment management directory `python -m venv myenv`
 3. Activate virtual environment `myenv\Scripts\activate`
 4. Install all project dependencies with `pip install -r requirements.txt`
 
-## Run the test
+### **Run the test**
+
 Run all test `pytest`  
 Run specific feature file `pytest features/logout.feature`  
 Run specific scenarion in a feature file `pytest features/logout.feature -k "Successfull logout from the application"`  
 
-## Run the test and save the results for Allure  
+### **Run the test and save the results for Allure**  
+
 Run test `pytest --alluredir=allure-results`  
 Run specific feature file `pytest features/logout.feature --alluredir=allure-results`  
 Generate HTML report `allure generate reports/allure-results -o reports/allure-report --clean`  
 Open report `allure serve reports/`  
 
-## Notes & Best Practices
+### **Notes & Best Practices**
+
 - Use `strip()` or default `''` for empty string handling in Scenario Outlines.
 - Structure your Page classes well with locators, actions, and status checkers.
+
 ---
 
 ## Author
