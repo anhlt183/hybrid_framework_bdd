@@ -1,4 +1,4 @@
-# Python Selenium BDD Hybrid Automation Framework
+# Python Playwright BDD Hybrid Automation Framework
 
 A robust, scalable test automation framework using **Python**, **Playwright**, **Behave (BDD)**, and the **Page Object Model (POM)** architecture.
 
