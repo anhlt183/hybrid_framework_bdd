@@ -78,9 +78,9 @@ hybrid_framwork_BDD/
 4. Install all project dependencies with `pip install -r requirements.txt`
 
 ## Run test
-Run all test `pytest`
-Run specific feature file `pytest features/logout.feature`
-Run specific scenarion in a feature file `pytest features/logout.feature -k "Successfull logout from the application"`
+Run all test `pytest`  
+Run specific feature file `pytest features/logout.feature`  
+Run specific scenarion in a feature file `pytest features/logout.feature -k "Successfull logout from the application"`  
 
 ## Reporting with Allure
 
