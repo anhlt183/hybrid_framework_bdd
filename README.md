@@ -71,12 +71,12 @@ hybrid_framwork_BDD/
 
 ---
 
-## How to Run
+## Installation steps
 
-### 1. Activate virtual environment
+### Activate virtual environment
 
 ```bash
-cd hybrid_framwork_BDD
+1. In Terminal, select the root folder project: ```bash cd hybrid_framwork_BDD ```
 myenv\Scripts\activate
 ```
 

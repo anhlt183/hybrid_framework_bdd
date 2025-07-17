@@ -1,4 +1,5 @@
 USERNAME_FIELD = 'input[name="user-name"]'
+# USERNAME_FIELD = 'textbox', name=''
 PASSWORD_FIELD = 'input[name="password"]'
 LOGIN_BUTTON = '#login-button'
 LOGIN_LOGO = 'div.login_logo'

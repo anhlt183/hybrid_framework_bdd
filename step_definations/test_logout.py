@@ -1,7 +1,6 @@
 from pages.login_page import LoginPage
 import allure
 from pytest_bdd import scenarios, given, when, then, parsers
-import pytest
 
 scenarios('../features/logout.feature')
 
