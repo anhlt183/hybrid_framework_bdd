@@ -1,6 +1,7 @@
 from pages.login_page import LoginPage
 import allure
 from pytest_bdd import scenarios, given, when, then, parsers
+from step_definitions import common_steps
 
 scenarios('logout.feature')
 
@@ -26,7 +27,3 @@ def step_verify_login_page_redirect(login_page : LoginPage):
 @then('Verify that user should be in the Login page')
 def step_verify_is_on_login_page(login_page : LoginPage):
     assert login_page.is_on_login_page(), "Not in the login page"  
-
-@then('the login form should still be visible')
-def step_verify_login_form_visible(login_page : LoginPage):
-    assert login_page.is_login_form_visible(), "Login form is not visible"

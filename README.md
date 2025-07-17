@@ -83,13 +83,13 @@ hybrid_framwork_BDD/
 ### **Run the test**
 
 Run all test `pytest`  
-Run specific feature file `pytest features/logout.feature`  
-Run specific scenarion in a feature file `pytest features/logout.feature -k "Successfull logout from the application"`  
+Run specific feature file `pytest -v -k logout`  
+Run specific scenarion in a feature file `pytest -v -k "successfull_logout_from_the_application"`  
 
 ### **Run the test and save the results for Allure**  
 
 Run test `pytest --alluredir=allure-results`  
-Run specific feature file `pytest features/logout.feature --alluredir=allure-results`  
+Run specific feature file `pytest -v -k logout --alluredir=allure-results`  
 Generate HTML report `allure generate reports/allure-results -o reports/allure-report --clean`  
 Open report `allure serve reports/`  
 
