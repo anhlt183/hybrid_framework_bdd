@@ -82,12 +82,11 @@ Run all test `pytest`
 Run specific feature file `pytest features/logout.feature`  
 Run specific scenarion in a feature file `pytest features/logout.feature -k "Successfull logout from the application"`  
 
-## Run the test and save the results for Allure
+## Run the test and save the results for Allure  
 Run test `pytest --alluredir=allure-results`  
 Run specific feature file `pytest features/logout.feature --alluredir=allure-results`  
 Generate HTML report `allure generate reports/allure-results -o reports/allure-report --clean`  
 Open report `allure serve reports/`  
----
 
 ## Notes & Best Practices
 - Use `strip()` or default `''` for empty string handling in Scenario Outlines.
