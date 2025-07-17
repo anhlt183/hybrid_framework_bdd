@@ -76,9 +76,12 @@ hybrid_framwork_BDD/
 ### Activate virtual environment
 
 ```bash
-1. In Terminal, select the root folder project: ```bash cd hybrid_framwork_BDD ```
-myenv\Scripts\activate
+1. In Terminal, select the root folder project `cd hybrid_framwork_BDD`
+2. Create virtual environment management directory `python -m venv myenv`
+3. Activate virtual environment `myenv\Scripts\activate`
 ```
+
+### Activate virtual environment
 
 ### 2. Run All step files
 
