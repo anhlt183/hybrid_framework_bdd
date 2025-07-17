@@ -2,7 +2,7 @@ from pages.login_page import LoginPage
 import allure
 from pytest_bdd import scenarios, given, when, then, parsers
 
-scenarios('../features/login.feature')
+scenarios('login.feature')
 
 # Given Steps - Initial state/setup
 @given('I am on the login page')

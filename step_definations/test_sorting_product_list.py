@@ -3,7 +3,7 @@ from pytest_bdd import scenarios, given, when, then, parsers
 from pages.login_page import LoginPage
 from pages.home_page import HomePage
 
-scenarios('../features/sorting_product_list.feature')
+scenarios('sorting_product_list.feature')
 
 # Given Steps - Initial state/setup
 @given(parsers.parse('I already logged in with username is "{username}" and password is "{password}"'))
