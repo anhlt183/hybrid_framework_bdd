@@ -4,7 +4,7 @@ A robust, scalable test automation framework using **Python**, **Playwright**, *
 
 ---
 
-## Project Structure
+## 🧱 Project Structure
 
 ```
 hybrid_framwork_BDD/
@@ -34,7 +34,7 @@ hybrid_framwork_BDD/
 
 ---
 
-## Tech Stack
+## 🤖 Tech Stack
 
 | Component       | Description                           |
 |---------------  |---------------------------------------|
@@ -47,7 +47,7 @@ hybrid_framwork_BDD/
 
 ---
 
-## Features Covered
+## 🌊 Features Covered
 
 ### **Login Functionality**
 
@@ -71,7 +71,7 @@ hybrid_framwork_BDD/
 
 ---
 
-## How to run test  
+## 🏃 How to run test  
 
 ### **Installation steps**
 
@@ -100,7 +100,7 @@ Open report `allure serve reports/`
 
 ---
 
-## Author
+## 👨‍🚀 Author
 
 **AnhLT183**  
 _A QA Engineer._
