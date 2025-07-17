@@ -77,27 +77,16 @@ hybrid_framwork_BDD/
 3. Activate virtual environment `myenv\Scripts\activate`
 4. Install all project dependencies with `pip install -r requirements.txt`
 
-## Run test
+## Run the test
 Run all test `pytest`  
 Run specific feature file `pytest features/logout.feature`  
 Run specific scenarion in a feature file `pytest features/logout.feature -k "Successfull logout from the application"`  
 
-## Reporting with Allure
-
-Install Allure CLI:
-
-```bash
-pip install allure-pytest
-```
-
-Run tests and generate report:
-
-```bash
-pytest -v step_definations/logout_steps.py --alluredir=allure-results
-allure generate reports/allure-results -o reports/allure-report --clean
-allure serve reports/
-```
-
+## Run the test and save the results for Allure
+Run test `pytest --alluredir=allure-results`  
+Run specific feature file `pytest features/logout.feature --alluredir=allure-results`  
+Generate HTML report `allure generate reports/allure-results -o reports/allure-report --clean`  
+Open report `allure serve reports/`  
 ---
 
 ## Notes & Best Practices
