@@ -2,18 +2,11 @@ import allure
 from pytest_bdd import scenarios, given, when, then, parsers
 from pages.login_page import LoginPage
 from pages.home_page import HomePage
+from step_definitions.common_steps import *
 
 scenarios('sorting_product_list.feature')
 
 # Given Steps - Initial state/setup
-@given(parsers.parse('I already logged in with username is "{username}" and password is "{password}"'))
-def step_verify_user_already_logged_in(login_page: LoginPage, username, password):
-    login_page.login(username, password)
-
-@given('I should be redirected to the Home page')
-def step_verify_home_page_redirect(login_page: LoginPage):
-    assert login_page.is_login_successful(), "Login was not successful"
-
 @given('the product sort container should be visible')
 def step_verify_product_sort_container_visible(home_page: HomePage):
     assert home_page.is_product_sort_container_visible(), "product sort container is not found"

@@ -1,18 +1,9 @@
 from pages.login_page import LoginPage
 import allure
 from pytest_bdd import scenarios, given, when, then, parsers
-from step_definitions import common_steps
+from step_definitions.common_steps import *
 
 scenarios('logout.feature')
-
-# Given Steps - Initial state/setup
-@given(parsers.parse('I already logged in with username is "{username}" and password is "{password}"'))
-def step_verify_user_already_logged_in(login_page : LoginPage, username, password):
-    login_page.login(username, password)
-
-@given('I should be redirected to the Home page')
-def step_verify_home_page_redirect(login_page : LoginPage):
-    assert login_page.is_login_successful(), "Login was not successful"
 
 # When Steps - Actions being performed
 @when('I click the logout button')

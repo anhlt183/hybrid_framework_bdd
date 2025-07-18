@@ -22,13 +22,15 @@ hybrid_framwork_BDD/
 │       └── home_locators.py             # Locators for home page
 │
 ├── step_definations/
+│   ├── common_steps.py                # contains step definitions that are used across multiple feature files    
 │   ├── login_steps.py                   # Step definitions for login
 │   ├── logout_steps.py                  # Step definitions for logout
 │   └── sorting_product_list_steps.py    # Step definitions for sorting
 │
 ├── reports/                    # Allure reports output (optional)
 ├── myenv/                      # Python virtual environment
-├── conftest.py                 # config to open and close browser   
+├── conftest.py                 # config to open and close browser  
+├── pytest.ini                  # config key aspects of how pytest-bdd discovers and runs tests
 └── README.md                   # Project documentation
 ```
 

@@ -1,7 +1,7 @@
 from pages.login_page import LoginPage
 import allure
 from pytest_bdd import scenarios, given, when, then, parsers
-from step_definitions import common_steps
+from step_definitions.common_steps import *
 
 scenarios('login.feature')
 
