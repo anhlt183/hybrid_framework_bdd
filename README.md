@@ -81,6 +81,12 @@ hybrid_framwork_BDD/
 2. Create virtual environment management directory `python -m venv myenv`
 3. Activate virtual environment `myenv\Scripts\activate`
 4. Install all project dependencies with `pip install -r requirements.txt`
+5. Install Playwright for Python
+```
+pip install playwright
+playwright install
+```
+6. Exports the current environment's installed packages into a requirements.txt `pip freeze > requirements.txt`
 
 ### **Run the test**
 
