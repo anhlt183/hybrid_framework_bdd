@@ -1,4 +1,5 @@
-import allure
+import os
+from datetime import datetime
 from utils.logger import get_logger
 from playwright.sync_api import Page, expect
 from pages.locators import home_locators as ho
@@ -14,30 +15,29 @@ class HomePage:
         self.product_price_list = page.locator(ho.PRODUCT_PRICE_LIST)
 
     def attach_screenshot(self, name="Screenshot"):
-        screenshot = self.page.screenshot()
-        allure.attach(screenshot, name=name, attachment_type=allure.attachment_type.PNG)
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"{name}_{timestamp}.png"
+        os.makedirs("screenshots", exist_ok=True)
+        path = os.path.join("screenshots", filename)
+        self.page.screenshot(path=path)
+        print(f"[Saved Screenshot] {path}")
 
-    @allure.step("Verify the product sort container is visible")
     def is_product_sort_container_visible(self):
         return self.product_sort_dropdown.is_visible()
 
-    @allure.step("Get product name from the page")
     def get_product_name(self):
         self.logger.info("Getting product names")
         return self.product_name_list.all_text_contents()
 
-    @allure.step("Get product price from the page")
     def get_product_price(self):
         self.logger.info("Getting product prices")
         prices = self.product_price_list.all_text_contents()
         return [float(price.replace('$', '').strip()) for price in prices]
 
-    @allure.step("Select option: {option}")
     def select_sorting_order_option(self, option):
         self.logger.info(f"Selecting option: {option}")
         self.product_sort_dropdown.select_option(label=option)
 
-    @allure.step("Verify that product is sorted by name Z to A")
     def is_sort_by_name_desc(self):
         self.logger.info("Verifying product sort Z to A")
         expect(self.page.locator(".active_option")).to_have_text("Name (Z to A)")
@@ -50,7 +50,6 @@ class HomePage:
             self.logger.error(f"Sort failed: {e}")
             self.attach_screenshot("Sort_Z_to_A_Fail")
 
-    @allure.step("Verify that product is sorted by name A to Z")
     def is_sort_by_name_asc(self):
         self.logger.info("Verifying product sort A to Z")
         expect(self.page.locator(".active_option")).to_have_text("Name (A to Z)")
@@ -63,7 +62,6 @@ class HomePage:
             self.logger.error(f"Sort failed: {e}")
             self.attach_screenshot("Sort_A_to_Z_Fail")
 
-    @allure.step("Verify that product is sorted by price low to high")
     def is_sort_by_price_asc(self):
         self.logger.info("Verifying product sort Low to High")
         expect(self.page.locator(".active_option")).to_have_text("Price (low to high)")
@@ -76,7 +74,6 @@ class HomePage:
             self.logger.error(f"Sort failed: {e}")
             self.attach_screenshot("Sort_Low_to_High_Fail")
 
-    @allure.step("Verify that product is sorted by price high to low")
     def is_sort_by_price_desc(self):
         self.logger.info("Verifying product sort High to Low")
         expect(self.page.locator(".active_option")).to_have_text("Price (high to low)")

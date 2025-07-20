@@ -27,7 +27,6 @@ hybrid_framwork_BDD/
 │   ├── logout_steps.py                  # Step definitions for logout
 │   └── sorting_product_list_steps.py    # Step definitions for sorting
 │
-├── reports/                    # Allure reports output (optional)
 ├── myenv/                      # Python virtual environment
 ├── conftest.py                 # config to open and close browser  
 ├── pytest.ini                  # config key aspects of how pytest-bdd discovers and runs tests
@@ -44,7 +43,6 @@ hybrid_framwork_BDD/
 | **Playwright**  | End-to-End Browser Automation         |
 | **Pytest**      | Python testing framework              |
 | **POM**         | Page Object Model for abstraction     |
-| **Allure**      | Rich test reports                     |
 | **Logging**     | `logging` module for step tracing     |
 
 ---
@@ -93,13 +91,6 @@ playwright install
 Run all test `pytest`  
 Run specific feature file `pytest -v -k logout`  
 Run specific scenarion in a feature file `pytest -v -k "successfull_logout_from_the_application"`  
-
-### **Run the test and save the results for Allure**  
-
-Run test `pytest --alluredir=allure-results`  
-Run specific feature file `pytest -v -k logout --alluredir=allure-results`  
-Generate HTML report `allure generate reports/allure-results -o reports/allure-report --clean`  
-Open report `allure serve reports/`  
 
 ### **Notes & Best Practices**
 

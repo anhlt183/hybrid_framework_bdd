@@ -1,4 +1,3 @@
-import allure
 from pytest_bdd import scenarios, given, when, then, parsers
 from pages.login_page import LoginPage
 from pages.home_page import HomePage
