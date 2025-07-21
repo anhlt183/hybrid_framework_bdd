@@ -27,10 +27,6 @@ def step_click_login_button(login_page: LoginPage):
     login_page.click_login_button()
 
 # Then Steps - Verification/Expected outcomes
-@then('I should be redirected to the Home page')
-def step_verify_home_page_redirect(login_page: LoginPage):
-    assert login_page.is_login_successful(), "Login was not successful"
-
 @then('I should see Home page logo')
 def step_verify_home_page_logo(login_page: LoginPage):
     assert login_page.is_home_page_logo_visible(), "Home page logo is not visible"

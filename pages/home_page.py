@@ -13,6 +13,7 @@ class HomePage:
         self.product_sort_dropdown = page.locator(ho.PRODUCT_SORT_DROPDOWN)
         self.product_name_list = page.locator(ho.PRODUCT_NAME_LIST)
         self.product_price_list = page.locator(ho.PRODUCT_PRICE_LIST)
+        self.active_option = page.locator(ho.ACTIVE_OPTION)
 
     def attach_screenshot(self, name="Screenshot"):
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -40,48 +41,64 @@ class HomePage:
 
     def is_sort_by_name_desc(self):
         self.logger.info("Verifying product sort Z to A")
-        expect(self.page.locator(".active_option")).to_have_text("Name (Z to A)")
-        names = self.get_product_name()
-        expected = sorted(names, reverse=True)
-        self.logger.info(f"Actual: {names}, Expected: {expected}")
         try:
-            assert names == expected
-        except AssertionError as e:
-            self.logger.error(f"Sort failed: {e}")
+            expect(self.active_option).to_have_text("Name (Z to A)")
+            names = self.get_product_name()
+            expected = sorted(names, reverse=True)
+            self.logger.info(f"Actual: {names}, Expected: {expected}")
+            if names != expected:
+                self.attach_screenshot("Sort_Z_to_A_Fail")
+                return False
+            return True
+        except Exception as e:
+            self.logger.error(f"Sort verification failed: {e}")
             self.attach_screenshot("Sort_Z_to_A_Fail")
-
+            return False
+        
     def is_sort_by_name_asc(self):
         self.logger.info("Verifying product sort A to Z")
-        expect(self.page.locator(".active_option")).to_have_text("Name (A to Z)")
-        names = self.get_product_name()
-        expected = sorted(names)
-        self.logger.info(f"Actual: {names}, Expected: {expected}")
         try:
-            assert names == expected
-        except AssertionError as e:
-            self.logger.error(f"Sort failed: {e}")
+            expect(self.active_option).to_have_text("Name (A to Z)")
+            names = self.get_product_name()
+            expected = sorted(names)
+            self.logger.info(f"Actual: {names}, Expected: {expected}")
+            if names != expected:
+                self.attach_screenshot("Sort_A_to_Z_Fail")
+                return False
+            return True
+        except Exception as e:
+            self.logger.error(f"Sort verification failed: {e}")
             self.attach_screenshot("Sort_A_to_Z_Fail")
+            return False
 
     def is_sort_by_price_asc(self):
-        self.logger.info("Verifying product sort Low to High")
-        expect(self.page.locator(".active_option")).to_have_text("Price (low to high)")
-        prices = self.get_product_price()
-        expected = sorted(prices)
-        self.logger.info(f"Actual: {prices}, Expected: {expected}")
+        self.logger.info("Verifying product sor t Low to High")
         try:
-            assert prices == expected
-        except AssertionError as e:
-            self.logger.error(f"Sort failed: {e}")
+            expect(self.active_option).to_have_text("Price (low to high)")
+            prices = self.get_product_price()
+            expected = sorted(prices)
+            self.logger.info(f"Actual: {prices}, Expected: {expected}")
+            if prices != expected:
+                self.attach_screenshot("Sort_Low_to_High_Fail")
+                return False
+            return True
+        except Exception as e:
+            self.logger.error(f"Sort verification failed: {e}")
             self.attach_screenshot("Sort_Low_to_High_Fail")
+            return False
 
     def is_sort_by_price_desc(self):
         self.logger.info("Verifying product sort High to Low")
-        expect(self.page.locator(".active_option")).to_have_text("Price (high to low)")
-        prices = self.get_product_price()
-        expected = sorted(prices, reverse=True)
-        self.logger.info(f"Actual: {prices}, Expected: {expected}")
         try:
-            assert prices == expected
-        except AssertionError as e:
-            self.logger.error(f"Sort failed: {e}")
+            expect(self.active_option).to_have_text("Price (high to low)")
+            prices = self.get_product_price()
+            expected = sorted(prices, reverse=True)
+            self.logger.info(f"Actual: {prices}, Expected: {expected}")
+            if prices != expected:
+                self.attach_screenshot("Sort_High_to_Low_Fail")
+                return False
+            return True
+        except Exception as e:
+            self.logger.error(f"Sort verification failed: {e}")
             self.attach_screenshot("Sort_High_to_Low_Fail")
+            return False

@@ -27,6 +27,9 @@ hybrid_framwork_BDD/
 │   ├── logout_steps.py                  # Step definitions for logout
 │   └── sorting_product_list_steps.py    # Step definitions for sorting
 │
+├── config/
+│   └──config.py                # config URL,...      
+│
 ├── myenv/                      # Python virtual environment
 ├── conftest.py                 # config to open and close browser  
 ├── pytest.ini                  # config key aspects of how pytest-bdd discovers and runs tests

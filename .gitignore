@@ -7,6 +7,7 @@ reports/
 # Bỏ qua các folder tạm khác (nếu muốn)
 .pytest_cache/
 myenv/
+*.html
 
 # Ignore pytest cache
 __pycache__/

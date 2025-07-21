@@ -4,6 +4,7 @@ from utils.logger import get_logger
 from playwright.sync_api import Page, expect
 from pages.locators import login_locators as lo
 from pages.locators import home_locators as ho
+from config.config import Config
 
 class LoginPage:
     def __init__(self, page: Page):
@@ -22,8 +23,8 @@ class LoginPage:
         self.error_message = page.locator(ho.ERROR_MESSAGE)
 
     def navigate_to_login_page(self):
-        self.logger.info("Navigating to login page: https://www.saucedemo.com/")
-        self.page.goto('https://www.saucedemo.com/')
+        self.logger.info(f"Navigating to login page: {Config.BASE_URL}")
+        self.page.goto(Config.BASE_URL)
         expect(self.username_field).to_be_visible()
         self.logger.info("Login page loaded successfully")
 

@@ -7,6 +7,7 @@ def step_verify_user_already_logged_in(login_page : LoginPage, username, passwor
     login_page.login(username, password)
 
 @given('I should be redirected to the Home page')
+@then('I should be redirected to the Home page')
 def step_verify_home_page_redirect(login_page : LoginPage):
     assert login_page.is_login_successful(), "Login was not successful"
 
