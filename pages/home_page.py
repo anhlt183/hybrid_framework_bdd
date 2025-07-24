@@ -13,6 +13,8 @@ class HomePage:
         self.product_sort_dropdown = page.locator(ho.PRODUCT_SORT_DROPDOWN)
         self.product_name_list = page.locator(ho.PRODUCT_NAME_LIST)
         self.product_price_list = page.locator(ho.PRODUCT_PRICE_LIST)
+        self.product_image_list = page.locator(ho.PRODUCT_ITEM_IMAGE)
+        self.product_page_title = page.locator(ho.PRODUCT_PAGE_TITLE)
         self.active_option = page.locator(ho.ACTIVE_OPTION)
 
     def attach_screenshot(self, name="Screenshot"):
@@ -25,6 +27,39 @@ class HomePage:
 
     def is_product_sort_container_visible(self):
         return self.product_sort_dropdown.is_visible()
+    
+    def is_inventory_page_open(self):
+        return self.product_page_title.text_content() == ho.PAGE_TITLE
+    
+    def are_product_images_visible(self):
+        count = self.product_image_list.count()
+        if count == 0:
+            self.logger.warning("No product images found on the page.")
+            return False
+        for i in range(count):
+            image = self.product_image_list.nth(i)
+            try:
+                expect(image).to_be_visible(timeout=5000)
+            except Exception as e:
+                self.logger.error(f"Image at index {i} is not visible: {e}")
+                return False
+        return True
+    
+    def are_product_images_valid(self):
+        count = self.product_image_list.count()
+        for i in range(count):
+            image = self.product_image_list.nth(i)
+            src = image.get_attribute("src")
+            alt = image.get_attribute("alt")
+            if not src or not src.strip():
+                self.logger.error(f"image at index {i} has empty 'src'")
+                return False
+            if not alt or not alt.strip():
+                self.logger.error(f"image at index {i} has empty 'alt'")
+                return False
+        self.logger.info(f"All {count} have valid 'src' and 'alt'")
+        return True    
+
 
     def get_product_name(self):
         self.logger.info("Getting product names")
@@ -102,3 +137,7 @@ class HomePage:
             self.logger.error(f"Sort verification failed: {e}")
             self.attach_screenshot("Sort_High_to_Low_Fail")
             return False
+        
+    def click_product_image(self, option):
+        self.logger.info(f"Click on {option} image")
+        self.page.get_by_alt_text(option).click()

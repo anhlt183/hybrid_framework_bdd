@@ -1,0 +1,1 @@
+PRODUCT_TITLE = ".inventory_details_name"
